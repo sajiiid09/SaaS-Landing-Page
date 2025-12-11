@@ -61,56 +61,60 @@ export default function Footer() {
               </FadeIn>
 
               {/* Links Grid */}
-              <div className="grid grid-cols-2 gap-8 mt-auto">
-                <div>
-                  <h3 className="text-lg font-bold mb-6 text-[#F3FFC9] opacity-80">Pages</h3>
-                  <ul className="space-y-3">
-                    {["Home", "Services", "About", "Case Studies", "Contact"].map((item) => (
-                      <li key={item}>
-                        <Link href="#" className="text-[#F3FFC9]/60 hover:text-[#F3FFC9] text-sm transition-colors font-medium block w-max">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <FadeIn delay={0.15}>
+                <div className="grid grid-cols-2 gap-8 mt-auto">
+                  <div>
+                    <h3 className="text-lg font-bold mb-6 text-[#F3FFC9] opacity-80">Pages</h3>
+                    <ul className="space-y-3">
+                      {["Home", "Services", "About", "Case Studies", "Contact"].map((item) => (
+                        <li key={item}>
+                          <Link href="#" className="text-[#F3FFC9]/60 hover:text-[#F3FFC9] text-sm transition-colors font-medium block w-max">
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <div>
-                  <h3 className="text-lg font-bold mb-6 text-[#F3FFC9] opacity-80">Utility</h3>
-                  <ul className="space-y-3">
-                    {["Style Guide", "Licenses", "Changelog", "404 Page"].map((item) => (
-                      <li key={item}>
-                        <Link href="#" className="text-[#F3FFC9]/60 hover:text-[#F3FFC9] text-sm transition-colors font-medium block w-max">
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="text-lg font-bold mb-6 text-[#F3FFC9] opacity-80">Utility</h3>
+                    <ul className="space-y-3">
+                      {["Style Guide", "Licenses", "Changelog", "404 Page"].map((item) => (
+                        <li key={item}>
+                          <Link href="#" className="text-[#F3FFC9]/60 hover:text-[#F3FFC9] text-sm transition-colors font-medium block w-max">
+                            {item}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </FadeIn>
 
               {/* Social Icons */}
-              <div className="flex gap-4 pt-8 border-t border-[#F3FFC9]/10">
-                {[
-                  { icon: "/facebook.svg", alt: "Facebook" },
-                  { icon: "/instagram.svg", alt: "Instagram" },
-                  { icon: "/linkedin_icon.svg", alt: "LinkedIn" }
-                ].map((social, idx) => (
-                  <Link 
-                    key={idx} 
-                    href="#" 
-                    className="w-12 h-12 rounded-full bg-[#0A0A0A] border border-[#F3FFC9]/10 flex items-center justify-center hover:bg-[#F3FFC9] hover:text-black transition-all group"
-                  >
-                    <Image 
-                      src={social.icon} 
-                      alt={social.alt} 
-                      width={20} 
-                      height={20} 
-                      className="invert sepia saturate-[500%] hue-rotate-[50deg] opacity-80 group-hover:filter-none group-hover:brightness-0 group-hover:invert-0 transition-all" 
-                    />
-                  </Link>
-                ))}
-              </div>
+              <FadeIn delay={0.25}>
+                <div className="flex gap-4 pt-8 border-t border-[#F3FFC9]/10">
+                  {[
+                    { icon: "/facebook.svg", alt: "Facebook" },
+                    { icon: "/instagram.svg", alt: "Instagram" },
+                    { icon: "/linkedin_icon.svg", alt: "LinkedIn" }
+                  ].map((social, idx) => (
+                    <Link
+                      key={idx}
+                      href="#"
+                      className="w-12 h-12 rounded-full bg-[#0A0A0A] border border-[#F3FFC9]/10 flex items-center justify-center hover:bg-[#F3FFC9] hover:text-black transition-all group"
+                    >
+                      <Image
+                        src={social.icon}
+                        alt={social.alt}
+                        width={20}
+                        height={20}
+                        className="invert sepia saturate-[500%] hue-rotate-[50deg] opacity-80 group-hover:filter-none group-hover:brightness-0 group-hover:invert-0 transition-all"
+                      />
+                    </Link>
+                  ))}
+                </div>
+              </FadeIn>
             </div>
 
             {/* --- RIGHT ISLAND (Contact & Featured) --- */}

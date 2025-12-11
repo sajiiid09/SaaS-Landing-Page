@@ -45,33 +45,37 @@ export default function Statistics() {
               </TextReveal>
             </div>
               {/* Used global text color with opacity for hierarchy */}
-              <p className="text-[#F3FFC9] opacity-80 text-lg leading-relaxed">
-                Our work is backed by measurable results. These numbers reflect the trust, 
-                success, and outcomes we&apos;ve delivered for our B2B partners across 
-                industries and regions.
-              </p>
+              <FadeIn delay={0.1}>
+                <p className="text-[#F3FFC9] opacity-80 text-lg leading-relaxed">
+                  Our work is backed by measurable results. These numbers reflect the trust,
+                  success, and outcomes we&apos;ve delivered for our B2B partners across
+                  industries and regions.
+                </p>
+              </FadeIn>
 
             {/* Counters Grid */}
-            <div className="grid sm:grid-cols-2 gap-8 border-t border-[#F3FFC9]/20 pt-10">
-              {stats.map((stat, index) => (
-                <FadeIn 
-                  key={stat.id} 
-                  delay={0.2 + (index * 0.1)}
-                  className="flex flex-col gap-2"
-                >
-                  <div className="flex items-baseline gap-1 text-5xl font-bold text-[#F3FFC9]">
-                    <Counter value={stat.value} suffix={stat.suffix} />
-                  </div>
-                  
-                  {/* The small divider line matching accent color */}
-                  <div className="w-12 h-1 bg-[#F3FFC9] my-2" />
-                  
-                  <p className="font-medium text-[#F3FFC9] opacity-90">
-                    {stat.label}
-                  </p>
-                </FadeIn>
-              ))}
-            </div>
+            <FadeIn delay={0.15}>
+              <div className="grid sm:grid-cols-2 gap-8 border-t border-[#F3FFC9]/20 pt-10">
+                {stats.map((stat, index) => (
+                  <FadeIn
+                    key={stat.id}
+                    delay={0.2 + (index * 0.1)}
+                    className="flex flex-col gap-2"
+                  >
+                    <div className="flex items-baseline gap-1 text-5xl font-bold text-[#F3FFC9]">
+                      <Counter value={stat.value} suffix={stat.suffix} />
+                    </div>
+
+                    {/* The small divider line matching accent color */}
+                    <div className="w-12 h-1 bg-[#F3FFC9] my-2" />
+
+                    <p className="font-medium text-[#F3FFC9] opacity-90">
+                      {stat.label}
+                    </p>
+                  </FadeIn>
+                ))}
+              </div>
+            </FadeIn>
           </div>
 
         </div>

@@ -85,7 +85,7 @@ export default function Services() {
           
           {/* LEFT: Dynamic Image Area */}
           {/* Updated background to #0A0A0A to stand out from bg-black */}
-          <div className="relative aspect-[4/3] w-full rounded-2xl bg-[#0A0A0A] border border-[#F3FFC9]/10 overflow-hidden shadow-lg order-2 lg:order-1">
+          <FadeIn className="relative aspect-[4/3] w-full rounded-2xl bg-[#0A0A0A] border border-[#F3FFC9]/10 overflow-hidden shadow-lg order-2 lg:order-1">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -102,9 +102,9 @@ export default function Services() {
                   fill
                   className="object-cover opacity-80" // Slightly dimmed to blend with dark mode
                 />
-                
+
                 {/* Floating Dashboard Overlay */}
-                <motion.div 
+                <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.5 }}
@@ -119,81 +119,82 @@ export default function Services() {
                 </motion.div>
               </motion.div>
             </AnimatePresence>
-          </div>
+          </FadeIn>
 
           {/* RIGHT: Interactive Accordion List */}
           <div className="flex flex-col gap-4 order-1 lg:order-2">
             {services.map((service, index) => {
               const isActive = activeTab === index;
-              
-              return (
-                <SpotlightCard
-                  key={service.id}
-                  onClick={() => setActiveTab(index)}
-                  className={clsx(
-                    "cursor-pointer rounded-2xl transition-all duration-300 bg-[#0A0A0A]", // Dark card bg
-                    isActive 
-                      ? "border-[#F3FFC9]/30 shadow-[0_0_30px_-10px_rgba(243,255,201,0.15)]" // Glow effect
-                      : "border-[#F3FFC9]/5 hover:border-[#F3FFC9]/20"
-                  )}
-                >
-                  <div className="p-6">
-                    {/* Top Row: Icon & Title */}
-                    <div className="flex items-center gap-4">
-                      <div className={clsx(
-                        "w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300",
-                        // Updated active/inactive states for the icon box
-                        isActive ? "bg-[#F3FFC9] shadow-lg shadow-[#F3FFC9]/20" : "bg-[#F3FFC9]/5 border border-[#F3FFC9]/10"
-                      )}>
-                        <Image 
-                          src={service.icon} 
-                          alt="" 
-                          width={24} 
-                          height={24}
-                          // Invert logic: If active, icon is dark (on light bg). If inactive, icon is light (on dark bg)
-                          // Also added sepia tint to match the yellowish theme
-                          className={clsx(
-                            "transition-all duration-300", 
-                            isActive ? "brightness-0" : "invert sepia saturate-[500%] hue-rotate-[50deg] opacity-80"
-                          )} 
-                        />
-                      </div>
-                      <h3 className={clsx(
-                        "text-xl font-bold transition-colors",
-                        // Active: Full color. Inactive: Dimmed
-                        isActive ? "text-[#F3FFC9]" : "text-[#F3FFC9] opacity-60"
-                      )}>
-                        {service.title}
-                      </h3>
-                    </div>
 
-                    {/* Expandable "Dropdown" Content */}
-                    <motion.div
-                      initial={false}
-                      animate={{ 
-                        height: isActive ? "auto" : 0,
-                        opacity: isActive ? 1 : 0
-                      }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 pl-[64px]">
-                        <p className="text-[#F3FFC9] opacity-70 mb-6 leading-relaxed">
-                          {service.description}
-                        </p>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2">
-                          {service.tags.map(tag => (
-                            <span key={tag} className="text-sm font-medium text-[#F3FFC9] opacity-80 bg-[#F3FFC9]/5 border border-[#F3FFC9]/10 px-3 py-1 rounded-full">
-                              {tag}
-                            </span>
-                          ))}
+              return (
+                <FadeIn key={service.id} delay={0.1 + index * 0.05}>
+                  <SpotlightCard
+                    onClick={() => setActiveTab(index)}
+                    className={clsx(
+                      "cursor-pointer rounded-2xl transition-all duration-300 bg-[#0A0A0A]", // Dark card bg
+                      isActive
+                        ? "border-[#F3FFC9]/30 shadow-[0_0_30px_-10px_rgba(243,255,201,0.15)]" // Glow effect
+                        : "border-[#F3FFC9]/5 hover:border-[#F3FFC9]/20"
+                    )}
+                  >
+                    <div className="p-6">
+                      {/* Top Row: Icon & Title */}
+                      <div className="flex items-center gap-4">
+                        <div className={clsx(
+                          "w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300",
+                          // Updated active/inactive states for the icon box
+                          isActive ? "bg-[#F3FFC9] shadow-lg shadow-[#F3FFC9]/20" : "bg-[#F3FFC9]/5 border border-[#F3FFC9]/10"
+                        )}>
+                          <Image
+                            src={service.icon}
+                            alt=""
+                            width={24}
+                            height={24}
+                            // Invert logic: If active, icon is dark (on light bg). If inactive, icon is light (on dark bg)
+                            // Also added sepia tint to match the yellowish theme
+                            className={clsx(
+                              "transition-all duration-300",
+                              isActive ? "brightness-0" : "invert sepia saturate-[500%] hue-rotate-[50deg] opacity-80"
+                            )}
+                          />
                         </div>
+                        <h3 className={clsx(
+                          "text-xl font-bold transition-colors",
+                          // Active: Full color. Inactive: Dimmed
+                          isActive ? "text-[#F3FFC9]" : "text-[#F3FFC9] opacity-60"
+                        )}>
+                          {service.title}
+                        </h3>
                       </div>
-                    </motion.div>
-                  </div>
-                </SpotlightCard>
+
+                      {/* Expandable "Dropdown" Content */}
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          height: isActive ? "auto" : 0,
+                          opacity: isActive ? 1 : 0
+                        }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 pl-[64px]">
+                          <p className="text-[#F3FFC9] opacity-70 mb-6 leading-relaxed">
+                            {service.description}
+                          </p>
+
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2">
+                            {service.tags.map(tag => (
+                              <span key={tag} className="text-sm font-medium text-[#F3FFC9] opacity-80 bg-[#F3FFC9]/5 border border-[#F3FFC9]/10 px-3 py-1 rounded-full">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </SpotlightCard>
+                </FadeIn>
               );
             })}
           </div>
