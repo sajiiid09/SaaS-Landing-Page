@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Counter from "@/components/ui/Counter";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+import { FadeIn } from "@/components/animations/FadeIn";
 import clsx from "clsx";
 
 const caseStudies = [
@@ -110,10 +111,11 @@ export default function CaseStudies() {
   return (
     <section className="py-24 bg-black overflow-hidden">
       <div className="container mx-auto px-6">
-        
+
         {/* Slider Container */}
-        <div className="relative max-w-[1400px] mx-auto">
-          
+        <FadeIn>
+          <div className="relative max-w-[1400px] mx-auto">
+
           {/* Main Card Shell */}
           {/* Changed bg to #0A0A0A and added tinted border */}
           <SpotlightCard className="bg-[#0A0A0A] rounded-3xl overflow-hidden shadow-2xl shadow-black/80 border border-[#F3FFC9]/10 relative min-h-[600px] lg:min-h-[500px] flex flex-col lg:flex-row group">
@@ -266,7 +268,8 @@ export default function CaseStudies() {
             ))}
           </div>
 
-        </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

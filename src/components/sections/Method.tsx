@@ -62,7 +62,8 @@ export default function Method() {
         </div>
 
         {/* 2. INTERACTIVE GRAPH SECTION */}
-        <div className="relative">
+        <FadeIn delay={0.15}>
+          <div className="relative">
           
           {/* Mobile Tab Switcher (Optional, but good for accessibility) */}
           <div className="flex gap-8 mb-16 md:hidden overflow-x-auto pb-4 scrollbar-hide">
@@ -195,7 +196,8 @@ export default function Method() {
               );
             })}
           </div>
-        </div>
+          </div>
+        </FadeIn>
 
       </div>
     </section>
