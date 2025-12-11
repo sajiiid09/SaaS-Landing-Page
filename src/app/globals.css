@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* Deep Space Theme - Dark Mode Base Styles */
+@layer base {
+  body {
+    /* CHANGED: Replaced bg-[#0B1121] with bg-black (which is #000000) */
+    @apply bg-black text-[#94A3B8];
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-[#F8FAFC];
+  }
+  
+  p, span {
+    @apply text-[#94A3B8];
+  }
+}@import "tailwindcss";
+
+/* Deep Space Theme - Dark Mode Base Styles */
+@layer base {
+  body {
+    /* Background: AMOLED Black | Text: Your new custom color */
+    @apply bg-black text-[#F3FFC9] font-sans;
+  }
+  
+  /* Force all headings to use the same color */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-[#F3FFC9];
+  }
+  
+  /* Force all body text to use the same color */
+  p, span, li, a, button {
+    @apply text-[#F3FFC9];
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .mask-linear-gradient {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+  }
+
+  .glass-md {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .glass-lg {
+    @apply bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10;
+  }
+
+  /* Updated Glow to match your new text color (Optional but recommended) */
+  /* This creates a glow using your text color instead of blue */
+  .glow-text {
+    @apply shadow-[0_0_30px_-5px_rgba(243,255,201,0.5)];
+  }
+
+  .border-dark {
+    @apply border-white/10;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .mask-linear-gradient {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  /* Glassmorphism utility */
+  .glass {
+    /* Optional: On pure black, you might want slightly more opacity for separation */
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+  }
+
+  .glass-md {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .glass-lg {
+    /* CHANGED: Updated the tinted glass to be neutral dark gray instead of navy blue */
+    /* Old: bg-[#151F32]/90 */
+    @apply bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10;
+  }
+
+  /* Glow effect utilities */
+  .glow-blue {
+    @apply shadow-[0_0_30px_-5px_rgba(59,130,246,0.5)];
+  }
+
+  .glow-blue-lg {
+    @apply shadow-[0_0_60px_-10px_rgba(59,130,246,0.3)];
+  }
+
+  /* Text gradient for premium feel */
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400;
+  }
+
+  /* Dark border utilities */
+  .border-dark {
+    @apply border-white/10;
+  }
+
+  .border-dark-light {
+    @apply border-white/20;
+  }
+/* Fallback for Wix Madefor Text */
+@font-face {
+  font-family: 'Wix Madefor Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/wixmadefortext/v17/-W_oXI_oSymQ8Qj-Apx3HGN_Hu1RTCk5FtSDETgf0cK_NNePiJVd9g.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+/* Enforce font family globally - ignoring Tailwind's font-sans for certainty */
+html, body, p, span, h1, h2, h3, h4, h5, h6, a, button, li, input, textarea {
+  font-family: 'Wix Madefor Text', sans-serif !important;
+}
+}
