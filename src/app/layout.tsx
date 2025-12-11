@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={wixMadeforText.variable}>
-      <body className="font-sans antialiased bg-white text-slate-900">
+      <body className="font-sans antialiased bg-black text-[#F3FFC9]">
         {children}
       </body>
     </html>
