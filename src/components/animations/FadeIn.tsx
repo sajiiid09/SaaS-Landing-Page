@@ -21,11 +21,12 @@ export const FadeIn = ({ children, delay = 0, className = "", direction = "up" }
   return (
     <motion.div
       initial={{ opacity: 0, ...directions[direction] }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
-      transition={{ 
-        duration: 0.5, 
-        delay, 
-        ease: [0.25, 0.4, 0.25, 1] // "Webflow-like" cubic-bezier
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.55,
+        delay,
+        ease: [0.25, 0.4, 0.25, 1],
       }}
       className={className}
     >

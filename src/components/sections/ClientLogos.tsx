@@ -25,11 +25,13 @@ export default function ClientLogos() {
       </div>
 
       {/* Marquee Container */}
-      <div className="relative flex w-full overflow-hidden mask-linear-gradient">
-        {/* We need two sets of logos to create the seamless loop effect */}
-        <MarqueeGroup />
-        <MarqueeGroup />
-      </div>
+      <FadeIn delay={0.1}>
+        <div className="relative flex w-full overflow-hidden mask-linear-gradient">
+          {/* We need two sets of logos to create the seamless loop effect */}
+          <MarqueeGroup />
+          <MarqueeGroup />
+        </div>
+      </FadeIn>
     </section>
   );
 }
