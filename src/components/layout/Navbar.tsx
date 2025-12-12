@@ -5,6 +5,49 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+type NavLink = {
+  label: string;
+  href: string;
+  key: string;
+};
+
+type NavSection = {
+  title: string;
+  columns: NavLink[][];
+};
+
+const NAV_SECTIONS: NavSection[] = [
+  {
+    title: "Agentic Intelligence Services",
+    columns: [
+      [
+        { label: "AI For Everyone", href: "/ai-for-everyone", key: "ai-for-everyone" },
+        { label: "AI For Business", href: "/ai-for-business", key: "ai-for-business" },
+        { label: "AI For Government", href: "/ai-for-government", key: "ai-for-government" },
+      ],
+      [
+        { label: "Contact Us", href: "/contact", key: "contact-us" },
+        { label: "Privacy Policy", href: "/privacy-policy", key: "privacy-policy" },
+      ],
+    ],
+  },
+  {
+    title: "Services & Resources",
+    columns: [
+      [
+        { label: "AI Custom Solution", href: "/ai-custom-solution", key: "ai-custom-solution" },
+        { label: "AI Consultancy", href: "/ai-consultancy", key: "ai-consultancy" },
+      ],
+      [
+        { label: "Blogs", href: "/blogs", key: "blogs" },
+        { label: "Case Studies", href: "/case-studies", key: "case-studies" },
+        { label: "ROI", href: "/roi", key: "roi" },
+        { label: "Reviews", href: "/reviews", key: "reviews" },
+      ],
+    ],
+  },
+];
+
 export default function Navbar() {
   const [isPagesOpen, setIsPagesOpen] = useState(false);
 
@@ -74,22 +117,26 @@ export default function Navbar() {
                             >
                                 {/* Column 1: Pages & Resources */}
                                 <div className="space-y-6">
-                                    <div>
-                                        <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">Main Pages</h4>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <Link href="/" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Home</Link>
-                                            <Link href="/about" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">About</Link>
-                                            <Link href="/services" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Services</Link>
-                                            <Link href="/contact" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Contact</Link>
+                                    {NAV_SECTIONS.map((section) => (
+                                        <div key={section.title}>
+                                            <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">{section.title}</h4>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {section.columns.map((column, columnIndex) => (
+                                                    <div key={`${section.title}-col-${columnIndex}`} className="space-y-2">
+                                                        {column.map((link) => (
+                                                            <Link
+                                                                key={link.key}
+                                                                href={link.href}
+                                                                className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors"
+                                                            >
+                                                                {link.label}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">Utility</h4>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <Link href="/style-guide" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Style Guide</Link>
-                                            <Link href="/changelog" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Changelog</Link>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
 
                                 {/* Column 2: Blog Feature */}
