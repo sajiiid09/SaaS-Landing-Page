@@ -5,8 +5,132 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+type NavLink = {
+  label: string;
+  href: string;
+  key: string;
+};
+
+type NavSection = {
+  title: string;
+  columns: NavLink[][];
+};
+
+type PreviewConfig = {
+  imageSrc: string;
+  alt: string;
+};
+
+const NAV_SECTIONS: NavSection[] = [
+  {
+    title: "Agentic Intelligence Services",
+    columns: [
+      [
+        { label: "AI For Everyone", href: "/ai-for-everyone", key: "ai-for-everyone" },
+        { label: "AI For Business", href: "/ai-for-business", key: "ai-for-business" },
+        { label: "AI For Government", href: "/ai-for-government", key: "ai-for-government" },
+      ],
+      [
+        { label: "Contact Us", href: "/contact", key: "contact-us" },
+        { label: "Privacy Policy", href: "/privacy-policy", key: "privacy-policy" },
+      ],
+    ],
+  },
+  {
+    title: "Services & Resources",
+    columns: [
+      [
+        { label: "AI Custom Solution", href: "/ai-custom-solution", key: "ai-custom-solution" },
+        { label: "AI Consultancy", href: "/ai-consultancy", key: "ai-consultancy" },
+      ],
+      [
+        { label: "Blogs", href: "/blogs", key: "blogs" },
+        { label: "Case Studies", href: "/case-studies", key: "case-studies" },
+        { label: "ROI", href: "/roi", key: "roi" },
+        { label: "Reviews", href: "/reviews", key: "reviews" },
+      ],
+    ],
+  },
+];
+
+const PREVIEW_MAP: Record<string, PreviewConfig> = {
+  "ai-for-everyone": {
+    imageSrc: "/images/previews/ai-for-everyone.jpg",
+    alt: "AI for everyone preview",
+  },
+  "ai-for-business": {
+    imageSrc: "/images/previews/ai-for-business.jpg",
+    alt: "AI for business preview",
+  },
+  "ai-for-government": {
+    imageSrc: "/images/previews/ai-for-government.jpg",
+    alt: "AI for government preview",
+  },
+  "contact-us": {
+    imageSrc: "/images/previews/contact-us.jpg",
+    alt: "Contact us preview",
+  },
+  "privacy-policy": {
+    imageSrc: "/images/previews/privacy-policy.jpg",
+    alt: "Privacy policy preview",
+  },
+  "ai-custom-solution": {
+    imageSrc: "/images/previews/ai-custom-solution.jpg",
+    alt: "AI custom solution preview",
+  },
+  "ai-consultancy": {
+    imageSrc: "/images/previews/ai-consultancy.jpg",
+    alt: "AI consultancy preview",
+  },
+  blogs: {
+    imageSrc: "/images/previews/blogs.jpg",
+    alt: "Blogs preview",
+  },
+  "case-studies": {
+    imageSrc: "/images/previews/case-studies.jpg",
+    alt: "Case studies preview",
+  },
+  roi: {
+    imageSrc: "/images/previews/roi.jpg",
+    alt: "ROI preview",
+  },
+  reviews: {
+    imageSrc: "/images/previews/reviews.jpg",
+    alt: "Reviews preview",
+  },
+};
+
+type PreviewCardProps = {
+  preview: PreviewConfig;
+};
+
+function PreviewCard({ preview }: PreviewCardProps) {
+  return (
+    <div className="bg-white/5 rounded-xl p-4 h-full flex flex-col gap-4">
+      <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider opacity-50">
+        Preview
+      </h4>
+      <div className="relative w-full overflow-hidden rounded-xl aspect-video bg-gray-800">
+        <Image
+          src={preview.imageSrc}
+          alt={preview.alt}
+          fill
+          className="h-full w-full rounded-xl object-cover"
+        />
+      </div>
+      <Link
+        href="/contact"
+        className="inline-flex items-center gap-2 text-[#F3FFC9] text-xs font-bold mt-4 hover:gap-3 transition-all"
+      >
+        Book a free call <span>→</span>
+      </Link>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [isPagesOpen, setIsPagesOpen] = useState(false);
+  const [activeKey, setActiveKey] = useState<string>("ai-for-everyone");
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center items-start pt-0 pointer-events-none">
@@ -74,40 +198,36 @@ export default function Navbar() {
                             >
                                 {/* Column 1: Pages & Resources */}
                                 <div className="space-y-6">
-                                    <div>
-                                        <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">Main Pages</h4>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <Link href="/" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Home</Link>
-                                            <Link href="/about" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">About</Link>
-                                            <Link href="/services" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Services</Link>
-                                            <Link href="/contact" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Contact</Link>
+                                    {NAV_SECTIONS.map((section) => (
+                                        <div key={section.title}>
+                                            <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">{section.title}</h4>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {section.columns.map((column, columnIndex) => (
+                                                    <div key={`${section.title}-col-${columnIndex}`} className="space-y-2">
+                                                        {column.map((link) => (
+                                                            <Link
+                                                                key={link.key}
+                                                                href={link.href}
+                                                                className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors"
+                                                                onMouseEnter={() => setActiveKey(link.key)}
+                                                                onFocus={() => setActiveKey(link.key)}
+                                                            >
+                                                                {link.label}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">Utility</h4>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <Link href="/style-guide" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Style Guide</Link>
-                                            <Link href="/changelog" className="block text-sm text-white/80 hover:text-[#F3FFC9] hover:bg-white/5 p-2 rounded transition-colors">Changelog</Link>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
 
-                                {/* Column 2: Blog Feature */}
-                                <div className="bg-white/5 rounded-xl p-4">
-                                    <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider mb-3 opacity-50">Latest from Blog</h4>
-                                    <Link href="/blog/how-to-scale" className="group block">
-                                        <div className="aspect-video relative rounded-lg overflow-hidden mb-3 bg-gray-800">
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                            {/* Placeholder for blog image if needed */}
-                                        </div>
-                                        <p className="text-white text-sm font-bold leading-tight group-hover:text-[#F3FFC9] transition-colors">
-                                            How to scale your B2B sales funnel in 2025
-                                        </p>
-                                    </Link>
-                                    <Link href="/contact" className="inline-flex items-center gap-2 text-[#F3FFC9] text-xs font-bold mt-4 hover:gap-3 transition-all">
-                                        Book a free call <span>→</span>
-                                    </Link>
-                                </div>
+                                {/* Column 2: Preview Feature */}
+                                <PreviewCard
+                                    preview={
+                                        PREVIEW_MAP[activeKey] ?? PREVIEW_MAP["ai-for-everyone"]
+                                    }
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>
