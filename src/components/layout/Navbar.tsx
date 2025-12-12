@@ -102,21 +102,39 @@ const PREVIEW_MAP: Record<string, PreviewConfig> = {
 
 type PreviewCardProps = {
   preview: PreviewConfig;
+  activeKey: string;
 };
 
-function PreviewCard({ preview }: PreviewCardProps) {
+const previewTransition = { duration: 0.3, ease: [0.33, 1, 0.68, 1] };
+
+function PreviewCard({ preview, activeKey }: PreviewCardProps) {
   return (
-    <div className="bg-white/5 rounded-xl p-4 h-full flex flex-col gap-4">
+    <motion.div
+      className="bg-white/5 rounded-xl p-4 h-full flex flex-col gap-4"
+      whileHover={{ scale: 1.01 }}
+      transition={{ duration: 0.15 }}
+    >
       <h4 className="text-[#F3FFC9] text-xs font-bold uppercase tracking-wider opacity-50">
         Preview
       </h4>
       <div className="relative w-full overflow-hidden rounded-xl aspect-video bg-gray-800">
-        <Image
-          src={preview.imageSrc}
-          alt={preview.alt}
-          fill
-          className="h-full w-full rounded-xl object-cover"
-        />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${activeKey}-${preview.imageSrc}`}
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={previewTransition}
+            className="absolute inset-0"
+          >
+            <Image
+              src={preview.imageSrc}
+              alt={preview.alt}
+              fill
+              className="h-full w-full rounded-xl object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
       <Link
         href="/contact"
@@ -124,7 +142,7 @@ function PreviewCard({ preview }: PreviewCardProps) {
       >
         Book a free call <span>→</span>
       </Link>
-    </div>
+    </motion.div>
   );
 }
 
@@ -190,10 +208,9 @@ export default function Navbar() {
                     <AnimatePresence>
                         {isPagesOpen && (
                             <motion.div
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 8 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 10 }}
-                                transition={{ duration: 0.2 }}
+                                transition={{ duration: 0.22 }}
                                 className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[600px] bg-[#161A18] border border-[#F3FFC9]/10 rounded-2xl p-6 shadow-xl overflow-hidden grid grid-cols-2 gap-8"
                             >
                                 {/* Column 1: Pages & Resources */}
@@ -227,6 +244,7 @@ export default function Navbar() {
                                     preview={
                                         PREVIEW_MAP[activeKey] ?? PREVIEW_MAP["ai-for-everyone"]
                                     }
+                                    activeKey={activeKey}
                                 />
                             </motion.div>
                         )}
