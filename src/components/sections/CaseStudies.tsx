@@ -193,9 +193,9 @@ export default function CaseStudies() {
                     </div>
 
                     {/* View Detail Button */}
-                    <button className="flex items-center gap-2 text-sm font-bold text-[#F3FFC9] hover:opacity-80 transition-colors group w-max">
-                      <span className="mb-0.5">View detail</span>
-                      <div className="w-8 h-8 rounded-full bg-[#F3FFC9]/10 flex items-center justify-center transition-colors border border-[#F3FFC9]/20">
+                    {/* <button className="flex items-center gap-2 text-sm font-bold text-[#F3FFC9] hover:opacity-80 transition-colors group w-max">
+                      <span className="mb-0.5"></span>
+                      <div className="w-8 h-8 rounded-full bg-[#F3FFC9]/10 flex items-center justify-center transition-colors border border-[#F3FFC9]/20"> */}
                          {/* Tinted Arrow */}
                          <img 
                            src="/button-arrow.svg" 
@@ -203,8 +203,8 @@ export default function CaseStudies() {
                            className="w-3 h-3 transition-transform group-hover:translate-x-0.5 invert brightness-100 sepia saturate-[500%] hue-rotate-[50deg]" 
                          />
                       </div>
-                    </button>
-                  </div>
+                    {/* </button>
+                  </div> */}
 
                 </div>
               </motion.div>

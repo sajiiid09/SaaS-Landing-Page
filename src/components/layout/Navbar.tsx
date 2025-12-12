@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 
 type NavLink = {
   label: string;
@@ -23,7 +23,7 @@ type PreviewConfig = {
 
 const NAV_SECTIONS: NavSection[] = [
   {
-    title: "Agentic Intelligence Services",
+    title: "Agentic Intelligence",
     columns: [
       [
         { label: "AI For Everyone", href: "/ai-for-everyone", key: "ai-for-everyone" },
@@ -46,7 +46,7 @@ const NAV_SECTIONS: NavSection[] = [
       [
         { label: "Blogs", href: "/blogs", key: "blogs" },
         { label: "Case Studies", href: "/case-studies", key: "case-studies" },
-        { label: "ROI", href: "/roi", key: "roi" },
+        // { label: "ROI", href: "/roi", key: "roi" },
         { label: "Reviews", href: "/reviews", key: "reviews" },
       ],
     ],
@@ -90,10 +90,10 @@ const PREVIEW_MAP: Record<string, PreviewConfig> = {
     imageSrc: "/images/previews/case-studies.jpg",
     alt: "Case studies preview",
   },
-  roi: {
-    imageSrc: "/images/previews/roi.jpg",
-    alt: "ROI preview",
-  },
+  // roi: {
+  //   imageSrc: "/images/previews/roi.jpg",
+  //   alt: "ROI preview",
+  // },
   reviews: {
     imageSrc: "/images/previews/reviews.jpg",
     alt: "Reviews preview",
@@ -105,7 +105,15 @@ type PreviewCardProps = {
   activeKey: string;
 };
 
-const previewTransition = { duration: 0.3, ease: [0.33, 1, 0.68, 1] };
+const previewTransition = { duration: 0.3, ease: [0.33, 1, 0.68, 1] as const };
+
+const NAV_VARIANTS = {
+  full: { y: 0 },
+  compact: { y: -10 },
+};
+
+const navTransition = { duration: 0.25, ease: [0.33, 1, 0.68, 1] as const };
+const SCROLL_THRESHOLD = 96;
 
 function PreviewCard({ preview, activeKey }: PreviewCardProps) {
   return (
@@ -149,6 +157,21 @@ function PreviewCard({ preview, activeKey }: PreviewCardProps) {
 export default function Navbar() {
   const [isPagesOpen, setIsPagesOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string>("ai-for-everyone");
+  const [isCompact, setIsCompact] = useState(false);
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const handleScroll = (latest: number) => {
+      setIsCompact(latest > SCROLL_THRESHOLD);
+    };
+
+    handleScroll(scrollY.get());
+    const unsubscribe = scrollY.on("change", handleScroll);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [scrollY]);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center items-start pt-0 pointer-events-none">
@@ -164,7 +187,12 @@ export default function Navbar() {
       </div>
 
       {/* Container for the Notch Effect */}
-      <div className="relative flex items-start pointer-events-auto">
+      <motion.div
+        className="relative flex items-start pointer-events-auto"
+        animate={isCompact ? "compact" : "full"}
+        variants={NAV_VARIANTS}
+        transition={navTransition}
+      >
         
         {/* Left Shape - Connecting Top Edge to Navbar Side */}
         <div className="h-full relative z-20 -mr-[20px] flex items-start">
@@ -179,8 +207,8 @@ export default function Navbar() {
 
         {/* MAIN NAVBAR CONTENT BLOCK */}
         <nav 
-            className="bg-[#161A18] px-8 py-0 h-[4.5rem] flex items-center gap-8 rounded-b-[24px] shadow-2xl relative z-20"
-            style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+          className={`bg-[#161A18] ${isCompact ? "px-7 h-[4rem]" : "px-8 h-[4.5rem]"} py-0 flex items-center gap-8 rounded-b-[24px] shadow-2xl relative z-20`}
+          style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
         >
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tighter text-[#F8FAFC] mr-4">
@@ -275,7 +303,7 @@ export default function Navbar() {
              />
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }
