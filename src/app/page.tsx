@@ -8,6 +8,7 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Services from "@/components/sections/Services";
 // import Method from "@/components/sections/Method";
 import Statistics from "@/components/sections/Statistics";
+import Globe from "@/components/sections/Globe"
 import CaseStudies from "@/components/sections/CaseStudies";
 import Footer from "@/components/sections/Footer";
 import CTA from "@/components/sections/CTA";
@@ -25,6 +26,7 @@ export default function Home() {
       <Services />
       {/* <Method /> */}
       <Statistics />
+      <Globe />
       <CaseStudies />
       <Pricing />
       <CTA />
